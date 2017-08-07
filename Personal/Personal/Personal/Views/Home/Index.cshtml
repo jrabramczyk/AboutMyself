@@ -2,30 +2,46 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div class="jumbotron containerInner img-responsive" style="height: 300px">
+    <h1>J.R. Abramczyk</h1>
+    <p class="lead" style="text-align: center">International Consultant / Principal .Net Developer</p>
 </div>
-
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
+    <div class="col-md-12 container">
+        <div class="container">
+            <p class="lead">
+                Accomplished Senior Software Engineer with experience in .Net Platform since 2008.
+                I have advanced competence in area of code optimization, performance, multi-threading, parallel computing, algorithms, business logic and database design.
+            </p>
+            <p class="lead">
+                Most of the time while I was developing I was involved in gathering requirements, design solutions, coding, testing,
+                debugging, maintanance and as a consultant always have direct contact with customers.
+            </p>
+            <p class="lead">
+                Currently looking for challenging, innovative and exceptional projects where Big Data, Micro-Services and Machine learning are very common terms.
+            </p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="page-tab"><h2>Experience</h2></div>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            Right here you can find a bit more about my skills, job experience, education and interests.
+            Will try to explain who I am and how I work so you can see if I'm the right person for you company.
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Experience", "Home")">Read more &raquo;</a></p>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
+    <div class="col-md-6">
+        <div class="page-tab"><h2>Blog</h2></div>
         <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Blog", "Home")">Read more &raquo;</a></p>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="page-tab"><h2>Contact</h2></div>
+        <p>The best way to contact me is via email or LinkedIn.</p>
+        <p><a class="btn btn-default" href="@Url.Action("Contact", "Home")">Read more &raquo;</a></p>
     </div>
 </div>

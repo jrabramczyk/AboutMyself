@@ -13,7 +13,7 @@ namespace Personal.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Experience()
         {
             ViewBag.Message = "Your application description page.";
 
@@ -22,7 +22,14 @@ namespace Personal.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "You can find my LinkedIn profile in the footer.";
+
+            return View();
+        }
+
+        public ActionResult Blog()
+        {
+            ViewBag.Message = "You can find my LinkedIn profile in the footer.";
 
             return View();
         }

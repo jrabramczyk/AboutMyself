@@ -1,30 +1,51 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title — moja aplikacja platformy ASP.NET</title>
+    <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script type='text/javascript'>
+        var appInsights=window.appInsights||function(config)
+        {
+            function r(config){ t[config] = function(){ var i = arguments; t.queue.push(function(){ t[config].apply(t, i)})} }
+            var t = { config:config},u=document,e=window,o='script',s=u.createElement(o),i,f;for(s.src=config.url||'//az416426.vo.msecnd.net/scripts/a/ai.0.js',u.getElementsByTagName(o)[0].parentNode.appendChild(s),t.cookie=u.cookie,t.queue=[],i=['Event','Exception','Metric','PageView','Trace','Ajax'];i.length;)r('track'+i.pop());return r('setAuthenticatedUserContext'),r('clearAuthenticatedUserContext'),config.disableExceptionTracking||(i='onerror',r('_'+i),f=e[i],e[i]=function(config, r, u, e, o) { var s = f && f(config, r, u, e, o); return s !== !0 && t['_' + i](config, r, u, e, o),s}),t
+        }({
+            instrumentationKey:'58f1d091-64a4-4620-b08d-3edb4551727b'
+        });
+
+        window.appInsights=appInsights;
+        appInsights.trackPageView();
+
+        function RoundIt(element) {
+            element.className = "inline-icon img-circle";
+        }
+
+        function SquareIt(element) {
+            element.className = "inline-icon";
+        }
+    </script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Nazwa aplikacji", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Informacje", "About", "Home")</li>
-                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                </ul>
+            <div class="row">
+                <div class="col-xs-6">
+                    <ul class="nav navbar-nav">
+                        <li style="float: left">@Html.ActionLink("J.R. Abramczyk", "Index", "Home")</li>
+                    </ul>
+                </div>
+                <div class="col-xs-6">
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav newLayout" style="float: right">
+                            <li>@Html.ActionLink("Experience", "Experience", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            <li>@Html.ActionLink("Blog", "Blog", "Home")</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -32,7 +53,19 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year — moja aplikacja platformy ASP.NET</p>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>&copy; Copyright @DateTime.Now.Year, J. R. Abramczyk</p>
+                </div>
+                <div class="col-sm-6" style="text-align: right">
+                    <a href="http://www.linkedin.com/in/jacek-abramczyk?locale=en_US" target="_blank">
+                        <img src="../../Content/Images/linkedin-icon.png" class="inline-icon" width="20" onmouseover="RoundIt(this)" onmouseout="SquareIt(this)" />
+                    </a>
+                    <a href="https://github.com/jrabramczyk" target="_blank">
+                        <img src="../../Content/Images/github-icon.png" class="inline-icon" width="20" onmouseover="RoundIt(this)" onmouseout="SquareIt(this)" />
+                    </a>
+                </div>
+            </div>
         </footer>
     </div>
 

@@ -25,6 +25,7 @@ namespace Personal
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/jrabramczyk.css",
                       "~/Content/site.css"));
         }
     }
