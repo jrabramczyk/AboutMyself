@@ -1,0 +1,88 @@
+.page-tab {
+    background-color: #1388cb;
+}
+
+body {
+    font-family: "SegoeUIMed", "Segoe UI", "sans-serif";
+}
+
+h1, h2 {
+    font-family: "SegoeUIMed", "Segoe UI", "sans-serif";
+}
+
+h2 {
+    padding-top: 7px;
+}
+
+html {
+    font-family: "SegoeUIMed", "Segoe UI", "sans-serif";
+}
+
+@media  (max-width: 767px){
+    .navbar .navbar-nav{
+        float: none;
+        display: inline-block
+    }
+}
+
+img {
+    display: inline-block;
+}
+
+.inline-icon {
+    display: inline-block;
+}
+
+.containerInner {
+	background: #eeeeee url('Images/profile-pic11.jpg') no-repeat center bottom;
+    background-size: cover;		
+}
+
+.list-group.list-group-with-padding {
+    margin-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.navbar-inverse {
+  background-color: #1388cb;
+  border-color: orange;
+}
+
+.btn-default {
+  color: #333333;
+  background-color: #ffffff;
+  border-color: orange;
+    border-bottom-width: 3px;
+    border-right-width: 2px;
+}
+
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active,
+.open .dropdown-toggle.btn-default {
+  color: orange;
+  background-color: #1388cb;
+  border-color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    color: orange;
+  background-color: transparent;
+}
+
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: -1px;
+  background-color: #ffffff;
+  border: 1px solid orange;
+  border-radius: 6px;
+}
