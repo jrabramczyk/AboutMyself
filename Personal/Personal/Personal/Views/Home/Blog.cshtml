@@ -1,8 +1,23 @@
-﻿@{
+﻿@model IEnumerable<Personal.Models.PostShortDescription>
+
+@{
     ViewBag.Title = "Blog";
 }
-<h2>@ViewBag.Title</h2><br/>
 
-    <strong>My apologise, still under development ...  </strong><br />
-<span>but no worries will be ready pretty soon</span>
-    @*<abbr title="Phone">P:</abbr>*@
+<h2>Blog</h2>
+
+
+@foreach (var item in Model) {
+
+    <div class="page-tab"><h2>@Html.DisplayFor(modelItem => item.Title)</h2></div>
+    
+    <div class="row col-md-12 container">
+            <p class="lead">
+                @Html.DisplayFor(modelItem => item.Description)
+            </p>
+            <p> 
+                @Html.Partial(item.PartialViewName)
+            </p>
+    </div>
+}
+

@@ -21,11 +21,13 @@ namespace Personal
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/CodeFormatter/run_prettify.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/jrabramczyk.css",
+                      "~/Content/prettify.css",
                       "~/Content/site.css"));
         }
     }
