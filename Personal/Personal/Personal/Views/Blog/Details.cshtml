@@ -1,0 +1,14 @@
+﻿@model Personal.Models.PostShortDescription
+
+<h2>Blog details</h2>
+
+<div class="page-tab"><h2>@Html.DisplayFor(modelItem => Model.Title)</h2></div>
+    
+<div class="row col-md-12 container">
+    <p class="lead">
+        @Html.DisplayFor(modelItem => Model.Description)
+    </p>
+    <p> 
+        @Html.Partial(Model.PartialViewName)
+    </p>
+</div>

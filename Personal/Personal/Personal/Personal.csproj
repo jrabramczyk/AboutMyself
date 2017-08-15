@@ -201,6 +201,7 @@
     <Content Include="Views\BlogPosts\DynamicDbContext.cshtml" />
     <Content Include="Views\BlogPosts\DiAndMultipleImplementation.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
+    <Content Include="Views\Blog\Details.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Personal.DataAccess;
+using Personal.Models;
 
 namespace Personal.Controllers
 {
@@ -13,6 +14,13 @@ namespace Personal.Controllers
             var postShortDescriptions = new PostShortDescriptionCollection().GetAll();
 
             return View(postShortDescriptions);
+        }
+
+        public ActionResult Details(int postId)
+        {
+            var post = new PostShortDescriptionCollection().GetById(postId);
+
+            return View(post);
         }
     }
 }

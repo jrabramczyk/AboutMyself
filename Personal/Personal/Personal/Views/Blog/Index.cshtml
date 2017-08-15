@@ -8,16 +8,16 @@
 
 
 @foreach (var item in Model) {
-
-    <div class="page-tab"><h2>@Html.DisplayFor(modelItem => item.Title)</h2></div>
+    
+    <div class="page-tab"><a href="@Url.Action("Details", "Blog", new { postId = @item.ID })" class="header-link"><h2>@item.Title</h2></a></div>
     
     <div class="row col-md-12 container">
             <p class="lead">
                 @Html.DisplayFor(modelItem => item.Description)
             </p>
-            <p> 
-                @Html.Partial(item.PartialViewName)
-            </p>
+        <p>
+            @Html.ActionLink("Read more...", "Details", "Blog", new { postId = item.ID }, new {@class = "btn btn-info"})
+        </p>
     </div>
 }
 

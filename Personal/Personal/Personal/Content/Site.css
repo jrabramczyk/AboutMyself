@@ -29,3 +29,23 @@ textarea {
     height: 50px;
     color: white;
 }
+
+a.header-link {
+    color: white;
+}
+
+a.header-link:active {
+    color: white;
+}
+
+a.header-link:link {
+    color: white;
+}
+
+a.header-link:visited {
+    color: white;
+}
+
+a.header-link:hover {
+    color: orange;
+}
