@@ -141,6 +141,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DataAccess\PostShortDescriptionCollection.cs" />
     <Compile Include="Global.asax.cs">
@@ -195,11 +196,11 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Blog_old.cshtml" />
     <Content Include="Views\Home\Experience.cshtml" />
     <Content Include="Views\Home\Blog.cshtml" />
     <Content Include="Views\BlogPosts\DynamicDbContext.cshtml" />
     <Content Include="Views\BlogPosts\DiAndMultipleImplementation.cshtml" />
+    <Content Include="Views\Blog\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
