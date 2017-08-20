@@ -49,3 +49,19 @@ a.header-link:visited {
 a.header-link:hover {
     color: orange;
 }
+
+.codePanel {
+    max-width: 1134px;
+    display: inline-block;
+}
+
+.row {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+#p {
+    text-indent: 15px;
+}

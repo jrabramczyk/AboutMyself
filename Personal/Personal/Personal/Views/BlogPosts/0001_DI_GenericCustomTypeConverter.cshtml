@@ -1,0 +1,101 @@
+﻿<p class="lead">
+So for better understanding the situation let me show you some code - <span style="font-size: 14px">personally I believe nothing can explain the situation better than clean code :)</span>
+</p>
+<p><pre class="prettyprint">
+class Program
+{
+    static void Main(string[] args)
+    {
+        var container = DependencyInstaller.Install();
+        var parser = container.Resolve&lt;ITypeParser&lt;int&gt;&gt;();
+
+        var stringToBeParsed = "000123";
+
+        var parsedValue = parser.Parse(stringToBeParsed);
+    }
+}
+</pre></p>
+<p class="lead">
+    After executing above code we would like to get proper integer and the only missing part here is to properly set dependeny injection container. To do so I decided to pick Autofac, honestly 
+    I have no oppinion about DI containers I believe each of them has some pros and cons and it simply is a judgemental call which one we are going to choose. In my current project I work with Autofac so that's
+    the one I'll be using during my presentation. Hope you like it too. Ok but lets get back to the main topic, we still need to register our interface and its implementation so here it is:
+</p>
+<p><pre class="prettyprint">
+public class DependencyInstaller
+{
+    public static IContainer Install()
+    {
+        var builder = new ContainerBuilder();
+
+        InstallCommonDependencies(builder);
+
+        return builder.Build();
+    }
+
+    private static void InstallCommonDependencies(ContainerBuilder builder)
+    {
+        TypeParsersInstaller.Install(builder);
+    }
+}
+
+public class TypeParsersInstaller
+{
+    public static void Install(ContainerBuilder builder)
+    {
+        builder.RegisterGeneric(typeof(TypeParser&lt;&gt;)).As(typeof(ITypeParser&lt;&gt;));
+    }
+}
+</pre></p>
+<p class="lead">
+    Ok there is still something I should show you at the very beginning it's nothing more as ITypeParser implementation so below you can find code responsible for that, very clear and simple.
+    As you can see it uses Converter.ChangeType() mechanism which in most cases works very well but can be really tricky if your string value requires some logic in it.
+</p>
+<p><pre class="prettyprint">
+public interface ITypeParser&lt;out T&gt;
+{
+    T Parse(string value);
+}
+	
+public class TypeParser&lt;T&gt; : ITypeParser&lt;T&gt;
+{
+    public T Parse(string value)
+    {
+        return (T) Convert.ChangeType(value, typeof(T));
+    }
+}
+</pre></p>
+<p class="lead">
+    The simpliest solution that comes to my mind that requires something more than basic implementation of the parser is DateTime. If we try to define parser as DateTime and pass something
+    like "20170315" then we will receive exception saying: <i>System.FormatException: 'String was not recognized as a valid DateTime.'</i> But of course you don't have to trust me,
+    just run the code in your VS and you will see the outcome of your own. Not that I like when people struggling with things in their lifes but I hope in this case it will fail for you.
+    But no worries backup is comming ...
+</p>
+<p class="lead">
+    So we know what is the problem and the question is how to solve it in a really good way. Possible there might be some better solutions for that kind of issues but the one I found suits 
+    me best. Hopefully you are going to like it too, so what I really did is I wrote a new specific implementation of our ITypeParser interface and added registration for it. Here you can see
+    how it looks in the code.
+</p>
+<p><pre class="prettyprint">
+public class TypeParsersInstaller
+{
+    public static void Install(ContainerBuilder builder)
+    {
+        builder.RegisterGeneric(typeof(TypeParser&lt;&gt;)).As(typeof(ITypeParser&lt;&gt;));
+        builder.RegisterType&lt;DateTimeParser&gt;().As&lt;ITypeParser&lt;DateTime&gt;&gt;();       // yup I just added that line to the container's registration
+    }
+}
+
+public class DateTimeParser : ITypeParser&lt;DateTime&gt;
+{
+    public DateTime Parse(string value)
+    {
+        return DateTime.ParseExact(value, "yyyyddmm", CultureInfo.InvariantCulture);
+    }
+}
+</pre></p>
+<p class="lead">
+    Somehow everything works fine but how is that possible actually? You can easily notice we have two registrations of the same generic type so how does DI container actually knows which one to choose.
+    Huh and that is the magic of DI containers, they simply pick the latest registration of given type or the most accurate one. So since now in all cases when we use generic parser the 
+    container will know to get generic implementation but for the DateTime it will pick DateTimeParser implementation. Isn't that wonderful, indeed it is - in the next post I'll show you 
+    why and how to use this astonishing feature.
+</p>
