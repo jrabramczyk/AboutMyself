@@ -47,7 +47,7 @@ public class TypeParsersInstaller
 }
 </pre></p>
 <p class="lead">
-    Ok there is still something I should show you at the very beginning it's nothing more as ITypeParser implementation so below you can find code responsible for that, very clear and simple.
+    Ok there is still something I should show you at the very beginning it's nothing more as ITypeParser implementation so below you can find code responsible for that, very clean and simple.
     As you can see it uses Converter.ChangeType() mechanism which in most cases works very well but can be really tricky if your string value requires some logic in it.
 </p>
 <p><pre class="prettyprint">
@@ -65,7 +65,7 @@ public class TypeParser&lt;T&gt; : ITypeParser&lt;T&gt;
 }
 </pre></p>
 <p class="lead">
-    The simpliest solution that comes to my mind that requires something more than basic implementation of the parser is DateTime. If we try to define parser as DateTime and pass something
+    The simpliest case that comes to my mind that requires something more than basic implementation of the parser is DateTime. If we try to define parser as DateTime and pass something
     like "20170315" then we will receive exception saying: <i>System.FormatException: 'String was not recognized as a valid DateTime.'</i> But of course you don't have to trust me,
     just run the code in your VS and you will see the outcome of your own. Not that I like when people struggling with things in their lifes but I hope in this case it will fail for you.
     But no worries backup is comming ...
