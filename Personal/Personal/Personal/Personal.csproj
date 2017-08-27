@@ -172,6 +172,7 @@
     <Content Include="Content\CV.pdf" />
     <None Include="Properties\PublishProfiles\AbramczykPersonal20170117022329 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\CodeFormatter\prettify.js" />
     <Content Include="Scripts\CodeFormatter\run_prettify.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -198,10 +199,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Experience.cshtml" />
     <Content Include="Views\Home\Blog.cshtml" />
-    <Content Include="Views\BlogPosts\DynamicDbContext.cshtml" />
-    <Content Include="Views\BlogPosts\DiAndMultipleImplementation.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Blog\Details.cshtml" />
+    <Content Include="Views\BlogPosts\0002_DI_DynamicCustomTypeConverter.cshtml" />
     <Content Include="Views\BlogPosts\0001_DI_GenericCustomTypeConverter.cshtml" />
   </ItemGroup>
   <ItemGroup />

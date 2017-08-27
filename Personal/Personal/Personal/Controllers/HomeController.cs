@@ -22,14 +22,5 @@ namespace Personal.Controllers
 
             return View();
         }
-
-        //public ActionResult Blog()
-        //{
-        //    ViewBag.Message = "You can find my LinkedIn profile in the footer.";
-
-        //    var postShortDescriptions = new PostShortDescriptionCollection().GetAll();
-
-        //    return View(postShortDescriptions);
-        //}
     }
 }

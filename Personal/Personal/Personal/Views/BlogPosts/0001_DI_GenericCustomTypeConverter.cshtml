@@ -1,7 +1,7 @@
 ﻿<p class="lead">
 So for better understanding the situation let me show you some code - <span style="font-size: 14px">personally I believe nothing can explain the situation better than clean code :)</span>
 </p>
-<p><pre class="prettyprint">
+<p><pre class="prettyprint linenums">
 class Program
 {
     static void Main(string[] args)
@@ -20,7 +20,7 @@ class Program
     I have no oppinion about DI containers I believe each of them has some pros and cons and it simply is a judgemental call which one we are going to choose. In my current project I work with Autofac so that's
     the one I'll be using during my presentation. Hope you like it too. Ok but lets get back to the main topic, we still need to register our interface and its implementation so here it is:
 </p>
-<p><pre class="prettyprint">
+<p><pre class="prettyprint linenums">
 public class DependencyInstaller
 {
     public static IContainer Install()
@@ -50,7 +50,7 @@ public class TypeParsersInstaller
     Ok there is still something I should show you at the very beginning it's nothing more as ITypeParser implementation so below you can find code responsible for that, very clean and simple.
     As you can see it uses Converter.ChangeType() mechanism which in most cases works very well but can be really tricky if your string value requires some logic in it.
 </p>
-<p><pre class="prettyprint">
+<p><pre class="prettyprint linenums">
 public interface ITypeParser&lt;out T&gt;
 {
     T Parse(string value);
@@ -75,7 +75,7 @@ public class TypeParser&lt;T&gt; : ITypeParser&lt;T&gt;
     me best. Hopefully you are going to like it too, so what I really did is I wrote a new specific implementation of our ITypeParser interface and added registration for it. Here you can see
     how it looks in the code.
 </p>
-<p><pre class="prettyprint">
+<p><pre class="prettyprint linenums">
 public class TypeParsersInstaller
 {
     public static void Install(ContainerBuilder builder)

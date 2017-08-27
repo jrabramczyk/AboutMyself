@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using Personal.DataAccess;
-using Personal.Models;
 
 namespace Personal.Controllers
 {

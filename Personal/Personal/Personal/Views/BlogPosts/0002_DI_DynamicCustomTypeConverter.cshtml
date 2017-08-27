@@ -1,0 +1,23 @@
+﻿<p class="lead">
+At the beginning I would like to show you a bit of a code so you can easily understand the whole situation.
+</p>
+<p><pre class="prettyprint linenums">
+class Program
+{
+    static void Main(string[] args)
+    {
+        var container = DependencyInstaller.Install();
+
+        var parserFactory = container.Resolve&lt;IObjectParserFactory&gt;();
+        var decimalParser = parserFactory.Get(typeof(decimal));
+
+        var stringToBeParsed = "00000012345678";
+        var parsedDecimal = decimalParser.Parse(stringToBeParsed); // 1234.5678
+    }
+}
+</pre></p>
+<p class="lead">
+    After executing above code we would like to get proper integer and the only missing part here is to properly set dependeny injection container. To do so I decided to pick Autofac, honestly 
+    I have no oppinion about DI containers I believe each of them has some pros and cons and it simply is a judgemental call which one we are going to choose. In my current project I work with Autofac so that's
+    the one I'll be using during my presentation. Hope you like it too. Ok but lets get back to the main topic, we still need to register our interface and its implementation so here it is:
+</p>
