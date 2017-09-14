@@ -8,16 +8,105 @@ class Program
     {
         var container = DependencyInstaller.Install();
 
+        var runtimeType = typeof(decimal);
+
         var parserFactory = container.Resolve&lt;IObjectParserFactory&gt;();
-        var decimalParser = parserFactory.Get(typeof(decimal));
+        var parser = parserFactory.Get(runtimeType);
 
         var stringToBeParsed = "00000012345678";
-        var parsedDecimal = decimalParser.Parse(stringToBeParsed); // 1234.5678
+        var parsedValue = parser.Parse(stringToBeParsed); //1234.5678
     }
 }
 </pre></p>
 <p class="lead">
-    After executing above code we would like to get proper integer and the only missing part here is to properly set dependeny injection container. To do so I decided to pick Autofac, honestly 
-    I have no oppinion about DI containers I believe each of them has some pros and cons and it simply is a judgemental call which one we are going to choose. In my current project I work with Autofac so that's
-    the one I'll be using during my presentation. Hope you like it too. Ok but lets get back to the main topic, we still need to register our interface and its implementation so here it is:
+    As you can see in the line 10 we passed runtimeType which is just a Type you know during the runtime. So now we have a factory that based on passed Type will return proper Parser.
+    So the question is how we can do that, I know at least 2 very popular solutions - which I describe briefly in a moment. But I would also like to show you solution I came up with, hopefully you are going to like it.
 </p>
+<p class="lead">
+    Lets start with the first aproach, I think that one is the most popular one. Basically in the factory class you can simply create SWITCH statement or just IF/ELSE approach both cases will work perfectly fine.
+    Here is the code with sample implementation of first approach. To be honest I'm not really a great fun of this approach because it's not only breaking one of the SOLID principles but also that could be a bit ugly when you want to add many different types.
+    But it's definitely the easiest way you can implement it.
+</p>
+<p><pre class="prettyprint linenums">
+public class ObjectParserFactory : IObjectParserFactory
+{
+    public IObjectParser Get(Type type)
+    {
+        switch (type.Name)
+        {
+            case nameof(Decimal):
+                return new DecimalObjectParser();
+            default:
+                throw new Exception($"There is no registered parser for given type: {type}.");
+        }
+
+        // OR SOMETHING LIKE THIS INSTEAD
+        if (type == typeof(decimal))
+        {
+            return new DecimalObjectParser();
+        }
+
+        throw new Exception($"There is no registered parser for given type: {type}.");
+    }
+}
+</pre></p>
+<p class="lead">
+    The next way you can implement it is very similar to the one I just presented. It's basically nothing more but use Dictionary instead of SWITCH statement. 
+    Let me show you how that can look like in the code.
+</p>
+<p><pre class="prettyprint linenums">
+public class ObjectParserFactory : IObjectParserFactory
+{
+    private readonly Dictionary&lt;Type, IObjectParser&gt; _parsers;
+
+    public ObjectParserFactory()
+    {
+        _parsers = new Dictionary&lt;Type, IObjectParser&gt;
+        {
+            {typeof(decimal), new DecimalObjectParser() }
+        };
+    }
+
+    public IObjectParser Get(Type type)
+    {
+        if (_parsers.TryGetValue(type, out IObjectParser parser))
+        {
+            return parser;
+        }
+
+        throw new Exception($"There is no registered parser for given type: {type}.");
+    }
+}
+</pre></p>
+<p class="lead">
+    From my perspective all these three examples above are equal. From the perspective of design there is no difference at all, ObjectParserFactory have almost identical implementation, 
+    same dependencies inside the class, so for me it is nothing more than syntactic sugar - which solution looks cleaner for us. 
+</p>
+<p class="lead">
+    Ok so is there any way to do it differenty, of course there is and now I'm going to show you something I came up with before I realized there is even better approach (but that depends on the power of your DI container).
+    <br/>So here on the code below you can notice I still use dictionary to find the right parser but in this case all the magic happens in the line 5. As you you can see I pass IEnumerable with all the parsers.
+    Yes I also have thought that is not good idea because we should pass only dependencies, not collections or values to the constructor because then how we are going to resolve this IObjectParserFactory type.
+    And yes in most cases you are right but this is exceptional example, because this collection is passed under the hood. Actually dependency container will get all registrations for ObjectParserAdapter and pass all of them to the constructor of our factory.
+    In that case we don't have to do anything and what's more, every time we need to create new parser what we have to do is to add it to container builder class to register it. That's it - we don't change our factory class at all. Isn't that wonderful?
+</p>
+<p><pre class="prettyprint linenums">
+public class ObjectParserFactory : IObjectParserFactory
+{
+    private readonly Dictionary&lt;Type, IObjectParser&gt; _parsers;
+        
+    public ObjectParserFactory(IEnumerable&lt;ObjectParserAdapter&gt; parsers)
+    {
+        _parsers = parsers.ToDictionary(key =&gt; key.Type, parser =&gt; (IObjectParser)parser);
+    }
+
+    public IObjectParser Get(Type type)
+    {
+        if (_parsers.TryGetValue(type, out IObjectParser parser))
+        {
+            return parser;
+        }
+
+        throw new Exception($"There is no registered parser for given type: {type}.");
+    }
+}
+</pre></p>
