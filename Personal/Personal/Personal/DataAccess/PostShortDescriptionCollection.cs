@@ -17,7 +17,7 @@ namespace Personal.DataAccess
                                          "Generic types are very powerful and easy to use, especially when you use them with parsing mechanism. " +
                                          "Due to that you can immediately with simply taking a quick peek at the code, know exactly what the returning type will be." +
                                          "<br/>There is one issue though, what if we don't know the returning type during the compilation time? " +
-                                         "<br/>Of course I believe everyone was in that kind of situation and they somehow managed to solve it. I had that issue too and I came up with some solution I haven't seen anywhere, so I decided to share that with you. " +
+                                         "<br/>Of course I believe everyone was in that kind of situation and they somehow managed to solve it. I had that issue too and I came up with some solution I haven't seen anywhere else, so I decided to share that with you. " +
                                          "<br/>Hopefully you are going to like it and find it usefull in your projects as much as I find it in mine.",
                                          "~/Views/BlogPosts/0002_DI_DynamicCustomTypeConverter.cshtml"),
                 new PostShortDescription(1, "Dependency injection and custom generic type parsers - part 1",

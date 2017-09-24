@@ -1,5 +1,5 @@
 ﻿<p class="lead">
-At the beginning I would like to show you a bit of a code so you can easily understand the whole situation.
+At the beginning I would like to show you a bit of a code so you can easily understand the whole problem.
 </p>
 <p><pre class="prettyprint linenums">
 class Program
@@ -20,7 +20,7 @@ class Program
 </pre></p>
 <p class="lead">
     As you can see in the line 10 we passed runtimeType which is just a Type you know during the runtime. So now we have a factory that based on passed Type will return proper Parser.
-    So the question is how we can do that, I know at least 2 very popular solutions - which I describe briefly in a moment. But I would also like to show you solution I came up with, hopefully you are going to like it.
+    So the question is how we can do that, I know at least 2 very popular solutions - which I describe briefly in a moment. 
 </p>
 <p class="lead">
     Lets start with the first aproach, I think that one is the most popular one. Basically in the factory class you can simply create SWITCH statement or just IF/ELSE approach both cases will work perfectly fine.
@@ -84,10 +84,10 @@ public class ObjectParserFactory : IObjectParserFactory
 </p>
 <p class="lead">
     Ok so is there any way to do it differenty, of course there is and now I'm going to show you something I came up with before I realized there is even better approach (but that depends on the power of your DI container).
-    <br/>So here on the code below you can notice I still use dictionary to find the right parser but in this case all the magic happens in the line 5. As you you can see I pass IEnumerable with all the parsers.
+    <br/>So here on the code below you can notice I still use dictionary to find the right parser but in this case all the magic happens in the line 5. As you can see I pass IEnumerable with all the parsers.
     Yes I also have thought that is not good idea because we should pass only dependencies, not collections or values to the constructor because then how we are going to resolve this IObjectParserFactory type.
     And yes in most cases you are right but this is exceptional example, because this collection is passed under the hood. Actually dependency container will get all registrations for ObjectParserAdapter and pass all of them to the constructor of our factory.
-    In that case we don't have to do anything and what's more, every time we need to create new parser what we have to do is to add it to container builder class to register it. That's it - we don't change our factory class at all. Isn't that wonderful?
+    In that case we don't have to do anything and what's more, every time we need to create new parser what we have to do is to add it to the container builder class to register it. That's it - we don't change our factory class at all. Isn't that wonderful? - <span style="font-size: 14px">I believe you agree it is</span>.
 </p>
 <p><pre class="prettyprint linenums">
 public class ObjectParserFactory : IObjectParserFactory
@@ -110,3 +110,102 @@ public class ObjectParserFactory : IObjectParserFactory
     }
 }
 </pre></p>
+<p class="lead">
+    I've created ObjectParserAdapter only for one reason, to hold Type of the parser. So now in the dictionary I can keep parser per type and then I cast it to IObjectParser which knows how to parse but don't keep Type property because it's irrelevant for it.
+    <br/>
+    Below you can see all implementations of IObjectParser to see what's behind it.
+</p>
+<p><pre class="prettyprint linenums">
+public interface IObjectParser
+{
+    object Parse(string value);
+}
+
+public abstract class ObjectParserAdapter : IObjectParser
+{
+    public abstract Type Type { get; }
+
+    public abstract object Parse(string value);
+}
+    
+public class DateTimeObjectParser : ObjectParserAdapter
+{
+    public override Type Type =&gt; typeof(DateTime);
+
+    public override object Parse(string value)
+    {
+        return DateTime.ParseExact(value, "yyyyddmm", CultureInfo.InvariantCulture);
+    }
+}
+
+public class DecimalObjectParser : ObjectParserAdapter
+{
+    public override Type Type =&gt; typeof(decimal);
+
+    public override object Parse(string value)
+    {
+        var decimalWithCommaPosition  = value.Insert(10, ".");
+
+        return decimal.Parse(decimalWithCommaPosition, CultureInfo.InvariantCulture);
+    }
+}
+</pre></p>
+<p class="lead">
+    As you can see in lines: 8, 15 and 25 we have Type specified so then you can easily create dictionary using types. Which I did in previous example above. But luckily for you Autofac has also one amazing feature which is called - keyed services.
+    Basically this functionality allows you to specified some keys for registration that you may use later. And in our case we can simply get rid of ObjectParserAdapter as we can specify the type during registration - below is the example.
+</p>
+<p><pre class="prettyprint linenums">
+public class IndexedObjectParsersInstaller
+{
+    public static void Install(ContainerBuilder builder)
+    {
+        builder.RegisterType&lt;IndexedObjectParserFactory&gt;().As&lt;IObjectParserFactory&gt;();
+
+        builder.RegisterType&lt;IndexedDateTimeObjectParser&gt;().Keyed&lt;IObjectParser&gt;(typeof(DateTime)); //Here we use Keyed functionality of Autofac
+        builder.RegisterType&lt;IndexedDecimalObjectParser&gt;().Keyed&lt;IObjectParser&gt;(typeof(decimal));  //and here as well
+    }
+}
+	
+	
+public class IndexedObjectParserFactory : IObjectParserFactory
+{
+    private readonly IIndex&lt;Type, IObjectParser&gt; _parsers;
+
+    public IndexedObjectParserFactory(IIndex&lt;Type, IObjectParser&gt; parsers)  //all IObjectParser objects are injected as IIndex
+    {
+        _parsers = parsers;
+    }
+
+    public IObjectParser Get(Type type)
+    {
+        if (_parsers.TryGetValue(type, out IObjectParser parser))
+        {
+            return parser;
+        }
+
+        throw new Exception($"There is no registered parser for given type: {type}.");
+    }
+}
+	
+
+public class IndexedDateTimeObjectParser : IObjectParser  //now our parser can implement IObjetParser directly, no adapter needed
+{
+    public object Parse(string value)
+    {
+        return DateTime.ParseExact(value, "yyyyddmm", CultureInfo.InvariantCulture);
+    }
+}
+
+public class IndexedDecimalObjectParser : IObjectParser 
+{
+    public object Parse(string value)
+    {
+        var decimalWithCommaPosition = value.Insert(10, ".");
+
+        return decimal.Parse(decimalWithCommaPosition, CultureInfo.InvariantCulture);
+    }
+}
+</pre></p>
+<p class="lead">
+    So with this brillaint functionality we can get rid of one redundant class, make code cleaner, move type configuration to dependency registration class - in general less and cleaner code. 
+</p>
