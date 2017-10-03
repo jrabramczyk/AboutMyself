@@ -203,6 +203,7 @@
     <Content Include="Views\Blog\Details.cshtml" />
     <Content Include="Views\BlogPosts\0002_DI_DynamicCustomTypeConverter.cshtml" />
     <Content Include="Views\BlogPosts\0001_DI_GenericCustomTypeConverter.cshtml" />
+    <Content Include="Views\BlogPosts\0003_OrderByThenByVsOrderByAnonymous.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

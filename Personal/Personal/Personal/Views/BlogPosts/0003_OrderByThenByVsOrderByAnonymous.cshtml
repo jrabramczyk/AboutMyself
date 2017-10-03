@@ -1,0 +1,51 @@
+﻿<p class="lead">
+That's enough of psychological theories as that's not the subject of this post. So let me explain to you my surprise when I was in the middle of changing the code in one of my projects and everything went well except the fact some unit tests suddenly started to fail.
+I was so surprised when I saw the exception and for the first few moments I couldn't understand what is happening right now as the whole project works fine 
+    - and yes for few miliseconds my internal voice said something like 'screw it, just delete these tests, there is something wrong with them probably, who cares' but of course I didn't do that.
+    <br/>So lets start from a bit of the code so it will be easier to explain the whole situation.
+</p>
+<p><pre class="prettyprint linenums">
+using (var dbContext = new TestDbContext())
+{
+    var orderByThenByQuery = dbContext.Persons.OrderBy(x =&gt; x.Name).ThenBy(x =&gt; x.Surname); // first aproach
+
+    var orderByAnonymousQuery = dbContext.Persons.OrderBy(x =&gt; new { x.Name, x.Surname }); // second (FANCY) approach
+}
+</pre></p>
+<p class="lead">
+    Yeah I also think it's really advanced code and you probably need few more minutes to understand what is happening here, no worries take your time. 
+    <br/>Ok now when you are finally ready to read about the real problem I will tell you a bit about what happened to me but first I need to show you something more that might be quite important.
+    You are probably aware of that both cases will generate same identical SQL code which will look nothing more nothing less like this one below.
+</p>
+<p><pre class="prettyprint linenums">
+SELECT
+    [Extent1].[ID] AS [ID],
+    [Extent1].[Name] AS [Name],
+    [Extent1].[Surname] AS [Surname],
+    [Extent1].[Age] AS [Age]
+FROM [dbo].[People] AS [Extent1]
+ORDER BY [Extent1].[Name] ASC, [Extent1].[Surname] ASC
+</pre></p>
+<p class="lead">
+    That is really nice to know this anonymous object new {x.Name, x.Surname } will be translated into couple separated fields in database. Some may ask if there is no difference, what is the problem then? 
+    In my case when I write unit tests I'm not having any abstract layer for data access e.g. repository pattern or some services.
+    I simply mock dbContext and whenever I try to access, change or add items to any type from dbContext I simply operate on collections - lists to be more specific. 
+    But I think it's to much code to show you my real problem so I'll make it simpler so you can understand it easily.
+</p>
+<p><pre class="prettyprint linenums">
+using (var dbContext = new TestDbContext())
+{
+    var people = dbContext.Persons.ToList(); // fetch the data on the server and execute the rest in C# instead of database (SQL)
+
+    var orderByThenByQuery = people.OrderBy(x =&gt; x.Name).ThenBy(x =&gt; x.Surname); // first aproach
+
+    var orderByAnonymousQuery = people.OrderBy(x =&gt; new { x.Name, x.Surname }); // second (FANCY) approach
+}
+</pre></p>
+<p class="lead">
+    So my friends what do you think will happen now? Is it still the same code which generate identical outcome? - I know the answer is pretty obvious, sadly not. 
+    Our first approach will behave the same way it did in previous example but what about the second (anonymous) approach? This won't be executed on the database so for each person
+     in the collection C# code needs to know how to compare anonymous types to order people correctly. In that case whenever you use anonymouse type for sorting in LINQ just make sure your code
+     will be executed on database or you need to think of providing comparer for it (<span style="font-size: 14px">and I'm toooo lazy for that</span>) otherwise you will get beautiful exception saying 'System.ArgumentException: At least one object must implement IComparable.'.
+    <br />The conclusion for this post is that I'm really happy with having and using old features of .Net world - at least sometimes.
+</p>

@@ -13,6 +13,13 @@ namespace Personal.DataAccess
         {
             PostShortDescriptions = new List<PostShortDescription>
             {
+                new PostShortDescription(3, "OrderBy().ThenBy()... vs OrderBy(x => new { ... }) fancy feature or hidden issue",
+                                         "From all developers I know I'm nothing special in terms of feeling excitement when you find out new feature, framework or just in general brand new solution on well known problem. " +
+                                         "Whenever I find something new I'm so eager to put it everywhere in the code so everyone can see it - did I mention I hate boring repetitive tasks ?!!! ... and yes that is one of them " +
+                                         "but still that doesn't stop me from populating new solution across the whole project." +
+                                         "<br/>I'm not really sure what psychological theory stand behind that behaviour but it's probably related to 'need of showing off', 'internal ego', 'desire of letting the world know how much do we actually know' " +
+                                         "or maybe simply an willingness to tell the world there is something better out there that we can use - <span style=\"font-size: 14px\">nah I also don't think it's the last case</span>.",
+                                         "~/Views/BlogPosts/0003_OrderByThenByVsOrderByAnonymous.cshtml"),
                 new PostShortDescription(2, "Dependency injection and custom dynamic type parsers - part 2",
                                          "Generic types are very powerful and easy to use, especially when you use them with parsing mechanism. " +
                                          "Due to that you can immediately with simply taking a quick peek at the code, know exactly what the returning type will be." +
