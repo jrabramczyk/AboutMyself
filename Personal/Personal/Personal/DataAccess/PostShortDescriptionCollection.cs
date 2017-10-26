@@ -13,6 +13,13 @@ namespace Personal.DataAccess
         {
             PostShortDescriptions = new List<PostShortDescription>
             {
+                new PostShortDescription(4, "EntityFramework vs SqlBulkCopy - enemies or team-mates?",
+                                         "Today I will try to introduce you to mix of two worlds: performance and comfortableness. " +
+                                         "We all know good old friend ADO.Net which in terms of performance is unreplacable but it is really stubborn and work with it is simply a pain! " +
+                                         "On the other hand we can play with our brand new friend (ok not that brand new anymore) Entity Framework <span style=\"font-size: 14px\">- nice representant of ORM species</span>. " +
+                                         "Working with EF is a real pleasure, it will do so many things for you, it will try to help you as much as possible but sadly because of all that work it tries to do for you it becomes NOT as eficient as we would like it to be. " +
+                                         "So what about merging these two friends so they can actually cooperate? - Lets find out!",
+                                         "~/Views/BlogPosts/0004_EFvsBulkCopy_1.cshtml"),
                 new PostShortDescription(3, "OrderBy().ThenBy()... vs OrderBy(x => new { ... }) fancy feature or hidden issue",
                                          "From all developers I know I'm nothing special in terms of feeling excitement when you find out new feature, framework or just in general brand new solution on well known problem. " +
                                          "Whenever I find something new I'm so eager to put it everywhere in the code so everyone can see it - did I mention I hate boring repetitive tasks ?!!! ... and yes that is one of them " +

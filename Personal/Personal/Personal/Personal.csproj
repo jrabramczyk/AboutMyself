@@ -158,6 +158,7 @@
     <Content Include="Content\Images\github-icon.png" />
     <Content Include="Content\Images\linkedin-icon.png" />
     <Content Include="Content\Images\profile-pic11.jpg" />
+    <Content Include="Content\Images\profile-pic12.jpeg" />
     <Content Include="Content\jrabramczyk.css" />
     <Content Include="Content\prettify.css" />
     <Content Include="favicon.ico" />
@@ -204,6 +205,7 @@
     <Content Include="Views\BlogPosts\0002_DI_DynamicCustomTypeConverter.cshtml" />
     <Content Include="Views\BlogPosts\0001_DI_GenericCustomTypeConverter.cshtml" />
     <Content Include="Views\BlogPosts\0003_OrderByThenByVsOrderByAnonymous.cshtml" />
+    <Content Include="Views\BlogPosts\0004_EFvsBulkCopy_1.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
