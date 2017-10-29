@@ -160,6 +160,7 @@
     <Content Include="Content\Images\linkedin-icon.png" />
     <Content Include="Content\Images\profile-pic11.jpg" />
     <Content Include="Content\Images\profile-pic12.jpeg" />
+    <Content Include="Content\Images\profile-pic12.jpg" />
     <Content Include="Content\jrabramczyk.css" />
     <Content Include="Content\prettify.css" />
     <Content Include="favicon.ico" />
