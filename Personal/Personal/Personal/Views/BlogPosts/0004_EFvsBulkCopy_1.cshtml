@@ -3,12 +3,121 @@
     <br/>Lets imagine you have an application that has to insert (or update) a big bunch of items into database. I know - really exceptional situation! 
     So lets say I simply read a file, receive collection through web service, some queue or any other source of data transmission. 
     After that I just want to do something with them and save into my database. In most cases when you develop tiny web page you won't have that kind of issues but when you 
-    for instance work with high frequency trading platform, then suddenly it becomes very ccommon scenario. 
-    <br/> 
-    <br/>
-    <br/>
-    ..... to be continued
+    for instance work with high frequency trading platform, then suddenly it becomes very common scenario. 
 </p>
 <p><pre class="prettyprint linenums">
+private static void RawEntityFrameworkInsertTest(List&lt;Person&gt; peopleToAdd)
+{
+    using (var dbContext = new DbContext())
+    {
+        peopleToAdd.ForEach(x =&gt; dbContext.Persons.Add(x));
 
+        dbContext.SaveChanges();
+    }
+}
 </pre></p>
+<p class="lead">
+    As you can see above, here is the most common (primitive) approach you can do to insert data into database using Entity Framework. 
+    Nothing really complicated, just passing collection and for each item add it to dbContext, then save changes - simple as that. 
+    <br/> 
+    Ok lets go to next example:
+</p>
+<p><pre class="prettyprint linenums">
+private static void RawEntityFrameworkInsertTest(List&lt;Person&gt; peopleToAdd)
+{
+    using (var dbContext = new DbContext())
+    {
+        dbContext.Configuration.AutoDetectChangesEnabled = false;  //stop tracking changes
+        dbContext.Set&lt;Person&gt;().AddRange(peopleToAdd); // AddRange instead of Add
+
+        dbContext.SaveChanges();
+    }
+}
+</pre></p>
+<p class="lead">
+    In this example above we changed slightly the code. First change I did was disabling AutoDetectChanges - actually it will be nice to put it inside try/finally statements 
+    to make sure we always set it back to 'true' at the end (but for the purpose of this test it doesn't matter). 
+    Because of disabling this we should increase our performance by far. Second thing we have change was actually AddRange instead of Add every object separately. 
+    What this actually does is nothing else but what we did in previous change. AddRange ensure us AutoDetectChanges will be enabled once after all objects are added, not after 
+    each object separately. But if you don't have access to the whole collection at once then it's worth to disable AutoDetectChanges manually.
+    <br/>
+    Now let me show you code with different approach, which is SqlBulkCopy. This is not execution of SQL Commands using raw ADO.Net but still, it's really similar.
+</p>
+<p><pre class="prettyprint linenums">
+private static void BulkCopyInsertTest(List&lt;Person&gt; peopleToAdd)
+{
+    var dataTable = DataTableCreator.CreateDataTable(peopleToAdd);
+
+    using (var dbContext = new DbContext())
+    using (var bulkCopy = new SqlBulkCopy(dbContext.Database.Connection.ConnectionString))
+    {
+        bulkCopy.BatchSize = 30000;  //that is really up to you what size you pick, but I found 30k optimal
+        bulkCopy.DestinationTableName = dataTable.TableName; //make sure this one is exactly as your database table name
+                                                             //so turn off EF table pluralization, because instead of 'Person' you will 
+                                                             //have 'People' in database and you don't want that
+
+        var columns = dataTable.Columns.Cast&lt;DataColumn&gt;().Select(x =&gt; x.ColumnName).ToList();
+        columns.ForEach(x =&gt; bulkCopy.ColumnMappings.Add(x, x)); //this is something that costs me hours of frustration, later I'll explain why
+
+        bulkCopy.WriteToServer(dataTable);
+    }
+}
+
+public class DataTableCreator
+{
+    public static DataTable CreateDataTable&lt;T&gt;(IEnumerable&lt;T&gt; people)
+    {
+        var type = typeof(T);
+        var properties = type.GetProperties();
+
+        var dataTable = new DataTable(type.Name, "dbo");  //if you have different schema than 'dbo' then you need to change it here
+        foreach (var info in properties)
+        {
+            dataTable.Columns.Add(new DataColumn(info.Name, Nullable.GetUnderlyingType(info.PropertyType) ?? info.PropertyType)); //for nullable types
+        }
+
+        foreach (var person in people)
+        {
+            var newRow = dataTable.NewRow();
+
+            foreach (var t in properties)
+            {
+                newRow[t.Name] = t.GetValue(person); //you can use reflection or in more complicated cases just dedicated mapper
+            }
+
+            dataTable.Rows.Add(newRow);
+        }
+
+        return dataTable;
+    }
+}
+</pre></p>
+<p class="lead">
+    Ok so what do we have here, basically in line 20 we have class DataTableCreator which can generate DataTable object based on any class we want. 
+    Of course if we have some special behavior we should play a bit with attributes not just taking all properties randomly.
+    <br/>
+    Really important code here is in the line 14 because without it you will have real troubles in the future once you do some ALTER TABLE updates. 
+    Without the mapping columns the SqlBulkCopy will generate INSERT QUERY in the order you pass elements and even though when you create new row (line 35) you actually 
+    insert values with string names (line 39) then the order of the properties in the collection might be completely different than the order of columns in the database.
+    And even though your code works completely fine at the beginning once you change some column type, name or remove column or maybe add new one then the order might be completely
+    different than the order of the properties you try to insert. That is why you always should have this column mapping - trust me I have wasted lots of time trying to figure out 
+    what is wrong with my code, after some updates. And what is the worst - the exception you receive is not really helpful. In the best case scenario you will end up with message 
+    saying you can't insert string into integer. But if you have columns with the same type then it's even worse because you will insert data but with messed values 
+    (belonging to different columns).
+    <br/><br/>
+    Alright, enough of that because I would like to show you my performance test results - that is the main goal!
+    <br/>
+    <img class="img-responsive" style="margin: 0 auto;" src="../../Content/Images/EFvsSqlBulkCopy_PerformanceTest.PNG" alt="Can't load performance test diagram.'">
+    <br/>
+    As you can see performance of Entity Framework with enabled detection is pretty slow and it is worth to be used only when you change/insert up to 1k elements. But if you need to 
+    prepare your application to insert more than that, then you should definitely disable changes detection because it can increase performance dramatically. 
+    Ok but what about SqlBulkCopy then, is it really worth to use it? Probably not for collections with up to 10k elements unless it is update/insert from GUI and we want our 
+    user to carry on with other changes. Please keep in mind the presented graph's vertical axis is logarithimc - that's why the differences don't seem that big. 
+    Up to 100k elements SqlBulkCopy is that fast you cannot see it on the graph as it is below 1 second and EF do it in almost 3000 seconds - which is quite impressive how faster sql bulk copy is.
+    <br/>
+    For SqlBulkCopy you can see two columns with and without reflection. So what that really means in my test, basically instead of using reflection for getting values for each object 
+    I also wrote some dedicated mapper to just take values from the object and insert it into DataRow object with proper name. As you can see with that approach you can still get another 
+    30% of performance but that I think is really needed when you play with dozens of milions of elements, because then time really matters.
+    <br/>
+    Ok that is pretty much it - hope you like it and you will find it useful in your project as well. Enjoy!
+</p>
