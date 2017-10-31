@@ -1,122 +1,123 @@
-﻿@{
+﻿    @{
     ViewBag.Title = "Experience";
 }
 
-<div class="page-tab page-tab-text">Summary</div>
-@*<p>CV as PDf => 
-    <a href="../../Content/CV.pdf" target="_blank" class="pull-right" title="CV">
-        <img src="../../Content/Images/CV-icon.png" class="inline-icon" width="80" />
-    </a> 
-</p>*@
-<div class="row col-md-12 container">
-    <p class="lead">
-        <a href="../../Content/CV.pdf" target="_blank" class="pull-right" title="CV">
-            <img src="../../Content/Images/CV-icon.png" class="inline-icon" width="80" />
-        </a> 
-        Since I work as an consultant I realized how important are soft skills e.g. communication and assertiveness, especially in financial sector where customers are extremly demanding.
-        We all live in 'Customer Driven Economy' where technology and soft skills both live side by side and as consultants we should become experts in both areas. 
-    </p>
-    <p class="lead">
-        Most of my career I've spent working in the international environment, where people were from around the world. Due to that experience I improved my soft skills and understood differences in cultures.
-        Experience of working in different environments showed me that in spite of technology, methodology, teams structure etc. there is nothing more important for our clients than delivering final product. 
-        Of course the final product must be reliable, stable, fast, responsive and amazing as it represents us, but we all should be focus on delivering stuff. 
-        It's nice to implement all good practices in our company but it's worth to keep in mind what is the main goal of our existence in particular project.
-    </p>
-    <p>
-        Wish I could speak as many languages as I know how to use for coding ...
-    </p>
+<div>
+    <div class="page-tab page-tab-text">Summary</div>
+    <div class="row col-md-12 container">
+        <p class="lead">
+            <a href="../../Content/CV.pdf" target="_blank" class="pull-right" title="CV">
+                <img src="../../Content/Images/CV-icon.png" class="inline-icon" width="80" />
+            </a> 
+            Since I work as an consultant I realized how important are soft skills e.g. communication and assertiveness, especially in financial sector where customers are extremly demanding.
+            We all live in 'Customer Driven Economy' where technology and soft skills both live side by side and as consultants we should become experts in both areas. 
+        </p>
+        <p class="lead">
+            Most of my career I've spent working in the international environment, where people were from around the world. Due to that experience I improved my soft skills and understood differences in cultures.
+            Experience of working in different environments showed me that in spite of technology, methodology, teams structure etc. there is nothing more important for our clients than delivering final product. 
+            Of course the final product must be reliable, stable, fast, responsive and amazing as it represents us, but we all should be focus on delivering stuff. 
+            It's nice to implement all good practices in our company but it's worth to keep in mind what is the main goal of our existence in particular project.
+        </p>
+        <p>
+            Wish I could speak as many languages as I know how to use for coding ...
+        </p>
+    </div>
+</div>
+<div>
+    <div class="page-tab page-tab-text toggable">Key Skills</div>
+    <div class="row container toBeToggled">
+        <ul class="list-group list-group-with-padding">
+            <li class="list-group-item col-xs-3 col-sm-2"><strong>Languages</strong></li>
+            <li class="list-group-item col-xs-9 col-sm-10">C#, SQL, JavaScript, F# (basic), C++ (basic)</li>
+        
+            <li class="list-group-item col-xs-3 col-sm-2"><strong>Technologies</strong></li>
+            <li class="list-group-item col-xs-9 col-sm-10">ASP .NET (MVC), AngularJS, WCF, LINQ, Big Data, Multithreading, MSMQ, jQuery, Quartz.Net</li>
+        
+            <li class="list-group-item col-xs-3 col-sm-2"><strong>DBMS</strong></li>
+            <li class="list-group-item col-xs-9 col-sm-10">MSSQL, Oracle, ElasticSearch, MongoDB, Couchbase, SSIS</li>
+        
+            <li class="list-group-item col-xs-3 col-sm-2"><strong>Architecture</strong></li>
+            <li class="list-group-item col-xs-9 col-sm-10"> SaaS, Client-Server, SOA, Microservices, DDD (basic), Onion architecture</li>
+        
+            <li class="list-group-item col-xs-3 col-sm-2"><strong>Principles</strong></li>
+            <li class="list-group-item col-xs-9 col-sm-10">OOP/OOD, TDD, SOLID</li>
+        
+            <li class="list-group-item col-xs-3 col-sm-2"><strong>Patterns</strong></li>
+            <li class="list-group-item col-xs-9 col-sm-10">IoC, Lazy Loading, Wrapper, DI, Interceptor, Factory, Singleton, Repository, ...</li>
+        
+            <li class="list-group-item col-xs-3 col-sm-2"><strong>CI</strong></li>
+            <li class="list-group-item col-xs-9 col-sm-10">Team City, Hudson/Jenkins</li>
+        
+            <li class="list-group-item col-xs-3 col-sm-2"><strong>Team work</strong></li>
+            <li class="list-group-item col-xs-9 col-sm-10">SVN, Git, TFS, Agile, Scrum, Pair-programming, Continuous delivery</li>
+        
+            <li class="list-group-item col-xs-3 col-sm-2"><strong>Bug tracking</strong></li>
+            <li class="list-group-item col-xs-9 col-sm-10">JIRA, TFS, VersionOne, IBM SCCD</li>
+        
+            <li class="list-group-item col-xs-3 col-sm-2"><strong>Testing</strong></li>
+            <li class="list-group-item col-xs-9 col-sm-10">nUnit, Moq, Ninject, Windsor Castle, AutoFixture, nCrunch, MsTest, Jasmine</li>
+
+            <li class="list-group-item col-xs-3 col-sm-2"><strong>Other</strong></li>
+            <li class="list-group-item col-xs-9 col-sm-10">EF, ReSharper, Matlab (basic), BPM Metastorm</li>
+        </ul>
+    </div>
+</div>
+<div>
+    <div class="page-tab page-tab-text toggable">Education</div>
+    <div class="row container toBeToggled">
+        <p>
+            Master of Computer science and Mathematics, Department of Software Engineering, Gdansk University of Technology.
+            <span class="pull-right">- 2014</span>
+            <br />Main subjects:
+        </p>
+        <ul class="list-group list-group-with-padding row">
+            <li class="list-group-item col-sm-6">Parallel processing CUDA/CELL</li>
+            <li class="list-group-item col-sm-6">Base analysis of capital markets</li>
+            <li class="list-group-item col-sm-6">High performance computing systems</li>
+            <li class="list-group-item col-sm-6">Advanced technology of Databases</li>
+        </ul>
+    </div>
+    <div class="row container toBeToggled">
+        <p>
+            Bachelor of Computer science and Mathematics, Department of Algorithms and System Modeling, Gdansk University of Technology.
+            <span class="pull-right">- 2012</span>
+            <br />Main subjects:
+        </p>
+        <ul class="row list-group list-group-with-padding">
+            <li class="list-group-item col-sm-6">Mathematical analysis and linear algebra</li>
+            <li class="list-group-item col-sm-6">Algorithms and data structure</li>
+            <li class="list-group-item col-sm-6">Discrete mathematics</li>
+            <li class="list-group-item col-sm-6">Numerical methods</li>
+            <li class="list-group-item col-sm-6">Probability and mathematical statistics</li>
+            <li class="list-group-item col-sm-6">Physics</li>
+            <li class="list-group-item col-sm-6">Computer architecture</li>
+            <li class="list-group-item col-sm-6">Analysis of algorithms</li>
+            <li class="list-group-item col-sm-6">Artificial intelligence - MATLAB</li>
+            <li class="list-group-item col-sm-6">Object oriented programming</li>
+        </ul>
+    </div>
+</div>
+<div>
+    <div class="page-tab page-tab-text toggable">Certificates</div>
+    <div class="row container toBeToggled">
+        <ul class="list-group list-group-with-padding row">
+            <li class="list-group-item col-sm-6">Microsoft Course 6654: Introducing to Windows Communication Foundation</li>
+        </ul>
+    </div>
 </div>
 
+<div>
+    <div class="page-tab page-tab-text toggable">Hobbies and Interests</div>
+    <div class="row container toBeToggled">
+        <ul class="list-group list-group-with-padding row">
+            <li class="list-group-item col-xs-3 col-sm-2"><strong>Algorithms</strong></li>
+            <li class="list-group-item col-xs-9 col-sm-10">www.hackerrank.com, www.spoj.pl - Looking for new solutions in algorithm problems, code optimization</li>
 
-<div class="page-tab page-tab-text">Key Skills</div>
-<div class="row container">
-    <ul class="list-group list-group-with-padding">
-        <li class="list-group-item col-xs-3 col-sm-2"><strong>Languages</strong></li>
-        <li class="list-group-item col-xs-9 col-sm-10">C#, SQL, JavaScript, F# (basic), C++ (basic)</li>
-        
-        <li class="list-group-item col-xs-3 col-sm-2"><strong>Technologies</strong></li>
-        <li class="list-group-item col-xs-9 col-sm-10">ASP .NET (MVC), AngularJS, WCF, LINQ, Big Data, Multithreading, MSMQ, jQuery, Quartz.Net</li>
-        
-        <li class="list-group-item col-xs-3 col-sm-2"><strong>DBMS</strong></li>
-        <li class="list-group-item col-xs-9 col-sm-10">MSSQL, Oracle, ElasticSearch, MongoDB, Couchbase, SSIS</li>
-        
-        <li class="list-group-item col-xs-3 col-sm-2"><strong>Architecture</strong></li>
-        <li class="list-group-item col-xs-9 col-sm-10"> SaaS, Client-Server, SOA, Microservices, DDD (basic), Onion architecture</li>
-        
-        <li class="list-group-item col-xs-3 col-sm-2"><strong>Principles</strong></li>
-        <li class="list-group-item col-xs-9 col-sm-10">OOP/OOD, TDD, SOLID</li>
-        
-        <li class="list-group-item col-xs-3 col-sm-2"><strong>Patterns</strong></li>
-        <li class="list-group-item col-xs-9 col-sm-10">IoC, Lazy Loading, Wrapper, DI, Interceptor, Factory, Singleton, Repository, ...</li>
-        
-        <li class="list-group-item col-xs-3 col-sm-2"><strong>CI</strong></li>
-        <li class="list-group-item col-xs-9 col-sm-10">Team City, Hudson/Jenkins</li>
-        
-        <li class="list-group-item col-xs-3 col-sm-2"><strong>Team work</strong></li>
-        <li class="list-group-item col-xs-9 col-sm-10">SVN, Git, TFS, Agile, Scrum, Pair-programming, Continuous delivery</li>
-        
-        <li class="list-group-item col-xs-3 col-sm-2"><strong>Bug tracking</strong></li>
-        <li class="list-group-item col-xs-9 col-sm-10">JIRA, TFS, VersionOne, IBM SCCD</li>
-        
-        <li class="list-group-item col-xs-3 col-sm-2"><strong>Testing</strong></li>
-        <li class="list-group-item col-xs-9 col-sm-10">nUnit, Moq, Ninject, Windsor Castle, AutoFixture, nCrunch, MsTest, Jasmine</li>
+            <li class="list-group-item col-xs-3 col-sm-2"><strong>Activities</strong></li>
+            <li class="list-group-item col-xs-9 col-sm-10">Chess, basketball, weightlifting, swimming, running, squash, dance (salsa & bachata)</li>
 
-        <li class="list-group-item col-xs-3 col-sm-2"><strong>Other</strong></li>
-        <li class="list-group-item col-xs-9 col-sm-10">EF, ReSharper, Matlab (basic), BPM Metastorm</li>
-    </ul>
-</div>
-
-<div class="page-tab page-tab-text">Education</div>
-<div class="row container">
-    <p>
-        Master of Computer science and Mathematics, Department of Software Engineering, Gdansk University of Technology.
-        <span class="pull-right">- 2014</span>
-        <br />Main subjects:
-    </p>
-    <ul class="list-group list-group-with-padding row">
-        <li class="list-group-item col-sm-6">Parallel processing CUDA/CELL</li>
-        <li class="list-group-item col-sm-6">Base analysis of capital markets</li>
-        <li class="list-group-item col-sm-6">High performance computing systems</li>
-        <li class="list-group-item col-sm-6">Advanced technology of Databases</li>
-    </ul>
-</div>
-<div class="row container">
-    <p>
-        Bachelor of Computer science and Mathematics, Department of Algorithms and System Modeling, Gdansk University of Technology.
-        <span class="pull-right">- 2012</span>
-        <br />Main subjects:
-    </p>
-    <ul class="row list-group list-group-with-padding">
-        <li class="list-group-item col-sm-6">Mathematical analysis and linear algebra</li>
-        <li class="list-group-item col-sm-6">Algorithms and data structure</li>
-        <li class="list-group-item col-sm-6">Discrete mathematics</li>
-        <li class="list-group-item col-sm-6">Numerical methods</li>
-        <li class="list-group-item col-sm-6">Probability and mathematical statistics</li>
-        <li class="list-group-item col-sm-6">Physics</li>
-        <li class="list-group-item col-sm-6">Computer architecture</li>
-        <li class="list-group-item col-sm-6">Analysis of algorithms</li>
-        <li class="list-group-item col-sm-6">Artificial intelligence - MATLAB</li>
-        <li class="list-group-item col-sm-6">Object oriented programming</li>
-    </ul>
-</div>
-
-<div class="page-tab page-tab-text">Certificates</div>
-<div class="row container">
-    <ul class="list-group list-group-with-padding row">
-        <li class="list-group-item col-sm-6">Microsoft Course 6654: Introducing to Windows Communication Foundation</li>
-    </ul>
-</div>
-
-<div class="page-tab page-tab-text">Hobbies and interests</div>
-<div class="row container">
-    <ul class="list-group list-group-with-padding row">
-        <li class="list-group-item col-xs-3 col-sm-2"><strong>Algorithms</strong></li>
-        <li class="list-group-item col-xs-9 col-sm-10">www.hackerrank.com, www.spoj.pl - Looking for new solutions in algorithm problems, code optimization</li>
-
-        <li class="list-group-item col-xs-3 col-sm-2"><strong>Activities</strong></li>
-        <li class="list-group-item col-xs-9 col-sm-10">Chess, basketball, weightlifting, swimming, running, squash, dance (salsa & bachata)</li>
-
-        <li class="list-group-item col-xs-3 col-sm-2"><strong>Books</strong></li>
-        <li class="list-group-item col-xs-9 col-sm-10">Psychology (motivation, emotional intelligence), Investing, Capital Market, Forex</li>
-    </ul>
+            <li class="list-group-item col-xs-3 col-sm-2"><strong>Books</strong></li>
+            <li class="list-group-item col-xs-9 col-sm-10">Psychology (motivation, emotional intelligence), Investing, Capital Market, Forex</li>
+        </ul>
+    </div>
 </div>

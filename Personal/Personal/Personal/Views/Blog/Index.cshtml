@@ -9,8 +9,9 @@
 
 @foreach (var item in Model) {
     
-    <div class="page-tab page-tab-text"><a href="@Url.Action("Details", "Blog", new { postId = @item.ID })" class="header-link">@item.Title</a></div>
-    
+    @*<div class="page-tab page-tab-text"><a href="@Url.Action("Details", "Blog", new { postId = @item.ID })" class="header-link">@item.Title</a></div>*@
+    <div class="page-tab page-tab-text">@item.Title</div>
+
     <div class="row col-md-12 container">
             <p class="lead">
                 @Html.Raw(item.Description)

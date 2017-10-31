@@ -21,6 +21,7 @@ namespace Personal
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/CodeFormatter/prettify.js",
+                      "~/Scripts/CustomBehavior/behavior.js",
                       //"~/Scripts/CodeFormatter/prettify.js",
                       "~/Scripts/respond.js"));
 

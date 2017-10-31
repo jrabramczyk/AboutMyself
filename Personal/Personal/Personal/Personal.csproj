@@ -177,6 +177,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\CodeFormatter\prettify.js" />
     <Content Include="Scripts\CodeFormatter\run_prettify.js" />
+    <Content Include="Scripts\CustomBehavior\behavior.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
