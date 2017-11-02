@@ -74,6 +74,12 @@ li.L0, li.L1, li.L2, li.L3, li.L5, li.L6, li.L7, li.L8 {
     border: 1px solid orange;
 }
 
+.page-tab.toggable:hover {
+    cursor: pointer;
+    background-color: #4faade;
+    color: orange;
+}
+
 .toBeToggled {
     
 }
